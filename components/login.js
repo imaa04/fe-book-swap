@@ -6,11 +6,15 @@ import {
   TextInput,
   Pressable,
   Button,
+  Link,
 } from "react-native";
 import React, { createContext, useState } from "react";
 import tailwind from "twrnc";
 
-export const LoginScreen = () => {
+
+
+
+const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,7 +55,7 @@ export const LoginScreen = () => {
           <View style={tailwind`flex-row items-center`}>
             <Pressable>
               <Text style={tailwind`text-gray-50 font-bold`}>
-                Don't have an account? Sign up
+                Don't have an account? Sign up  
               </Text>
             </Pressable>
             {/* <Pressable
