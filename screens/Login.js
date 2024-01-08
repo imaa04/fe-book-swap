@@ -8,26 +8,38 @@ import {
   Button,
   Link,
 } from "react-native";
-import React, { createContext, useState } from "react";
+import React, { useContext,createContext, useState } from "react";
 import tailwind from "twrnc";
-
-
+import { UserContext } from "../context/userContext";
+import {useNavigation} from '@react-navigation/native'
 
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  // const [user, setUser] = createContext();
-
-  const handleLogin = (event) => {
+  const [buttonLock, setButtonLock] = useState('')
+  const [input, setInput] = useState('')
+  const {token,setToken} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
+const navigation = useNavigation()
+    
+  const handleSubmit = (event) => {
     event.preventDefault();
-    setUser(true)
+    setUser({username,password})
+    setUsername('')
+    setPassword('')
   }
+
+  // useEffect(()=>{
+  //   getLogin().then((authToken)=>{
+  //   setToken(authToken)
+  //   })
+  // })
+  console.log(username,'username', password,'password',user);
 
   return (
     <View
-      style={tailwind`twflex-1 w-full items-center justify-center bg-gray-950`}
+      style={tailwind`flex-1 w-full items-center justify-center bg-gray-950`}
     >
       <View style={tailwind`px-4 w-full max-w-sm`}>
         <Text style={tailwind`text-2xl font-bold mb-6 text-gray-50`}>
@@ -49,12 +61,13 @@ const LoginScreen = () => {
             placeholder="Password"
             placeholderTextColor="#FFF"
           />
+          <Button title="Login" text="Login" variant="success" onPress={handleSubmit} disabled={false} />
         </View>
 
         <View style={tailwind`flex flex-row justify-between items-center my-8`}>
           <View style={tailwind`flex-row items-center`}>
             <Pressable>
-              <Text style={tailwind`text-gray-50 font-bold`}>
+              <Text onPress={()=>navigation.navigate('Signup')} style={tailwind`text-gray-50 font-bold`}>
                 Don't have an account? Sign up  
               </Text>
             </Pressable>
@@ -67,8 +80,6 @@ const LoginScreen = () => {
             <Text style={tailwind`text-gray-50 font-bold`}>Reset password</Text>
           </Pressable> */}
         </View>
-
-        <Button title="Login" text="Login" variant="success" />
       </View>
     </View>
   );

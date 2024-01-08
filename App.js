@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import LoginScreen from './components/Login';
+import LoginNavigator from './navigators/LoginNavigator';
 import { NativeWindStyleSheet } from "nativewind";
 import { Button } from 'react-native';
-import signupButton from './components/SignupButton';
+// import SignupButton from './components/SignupButton';
 import { UserProvider } from './context/userContext';
 import { createNativeStackNavigator, StackNavigator } from '@react-navigation/native-stack';
 import tailwind from 'twrnc';
-import Signup from "./components/signup";
+// import Signup from "./screens/Signup";
 const Stack = createNativeStackNavigator();
 export default function App() {
   
@@ -22,14 +22,9 @@ export default function App() {
       
         <NavigationContainer >
           <Stack.Navigator style={{ flex: 1, justifyContent: `center`, }}>
-            <Stack.Screen name='LoginScreen' component={LoginScreen} />
-            <Stack.Screen style={tailwind`text-gray-50 font-bold`} name="Sign up" component={Signup}  />
-          
-        
+            <Stack.Screen name='LoginNavigator' component={LoginNavigator} />
         </Stack.Navigator>
         </NavigationContainer>
-
-    
     </UserProvider>
   );
 }
