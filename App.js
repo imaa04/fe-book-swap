@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import LoginNavigator from './navigators/LoginNavigator';
+import LoginNavigator from './navigators/Navigator';
 import { NativeWindStyleSheet } from "nativewind";
 import { Button } from 'react-native';
 // import SignupButton from './components/SignupButton';

@@ -13,26 +13,30 @@ import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
 import Locations from "../data/locations";
 import RNPickerSelect from "react-native-picker-select";
+import { postUser } from "../api";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { user, setUser } = useContext(UserContext);
+  // const [email, setEmail] = useState("")
   const [location, setLocation] = useState("");
   const [submitAlert, setSubmitAlert] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUser({ username, password,location });
+    setUser({ username, password, location });
     setUsername("");
     setPassword("");
+    // setEmail("")
+    postUser(user).then((res) => {
+      return res.user
+    })
     setSubmitAlert('Account created successfully.')
   };
 
-  const accountCreatedAlert = ()=>{
-Alert.alert('Account created successfully.',[{text:'OK',onPress:()=>console.log('Ok pressed')}])
-  }
-  console.log(location,'location')
+
+  // console.log(location,'location')
 
   return (
     <View
@@ -51,21 +55,28 @@ Alert.alert('Account created successfully.',[{text:'OK',onPress:()=>console.log(
           placeholder="Username"
           placeholderTextColor="#FFF"
         />
+        {/* <TextInput
+          value={email}
+          onChangeText={setEmail}
+          color="white"
+          placeholder="Email"
+          placeholderTextColor="#FFF"
+        /> */}
         <RNPickerSelect
           items={Locations}
           value={location}
-          onValueChange={(value)=>setLocation(value)}
-          textInputProps={{style:{color:'white'}}}
-          placeholder={{label:'Select your location...'}}
+          onValueChange={(value) => setLocation(value)}
+          textInputProps={{ style: { color: 'white' } }}
+          placeholder={{ label: 'Select your location...' }}
           placeholderTextColor="red"
         />
-        
+
         {/* {location !== null && (
         <Text style={{ color: 'white', marginTop: 10 }}>
           Selected Location: {location}
         </Text>
       )} */}
-      
+
 
         <TextInput
           value={password}
@@ -81,6 +92,7 @@ Alert.alert('Account created successfully.',[{text:'OK',onPress:()=>console.log(
           onPress={handleSubmit}
           disabled={false}
         />
+        <Text style={{ color: 'white' }}>{submitAlert}</Text>
       </View>
       {/* <Text onPress={()=>navigation.navigate('Login')} style={tailwind`text-gray-50 font-bold`}>
                 Account created successfully.
