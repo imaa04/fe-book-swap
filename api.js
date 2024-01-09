@@ -13,6 +13,7 @@ export const getBooks = ()=>{
 }
 
 export const postLogin = (loginBody) => {
+    console.log(loginBody, 'loginbody api');
     return api
         .post('/login', loginBody)
         .then((body) => {

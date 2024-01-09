@@ -23,7 +23,7 @@ const LoginScreen = () => {
   const [buttonLock, setButtonLock] = useState('')
   const [input, setInput] = useState('')
   const [incorrectUser, setIncorrectUser] = useState(false)
-  // const { setToken } = useContext(TokenContext);
+  const { setToken } = useContext(TokenContext);
   const [user, setUser] = useState({});
   const navigation = useNavigation()
 
