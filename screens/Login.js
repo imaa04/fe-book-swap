@@ -15,6 +15,7 @@ import {TokenContext} from '../context/authTokenContext'
 import { useNavigation } from '@react-navigation/native'
 import { postLogin } from "../api";
 import useToken from "./UseToken";
+import HomePage from "./HomePage";
 
 
 const LoginScreen = () => {
@@ -39,9 +40,8 @@ const LoginScreen = () => {
       const updatedUser = { username: username, password: password }
       postLogin(updatedUser).then((res) => {
         if (res) {
-          console.log(res,'res');
           setToken(res)
-          console.log(token,'token in handle submit');
+          console.log('success');
           navigation.navigate('HomePage')
         } else {
           setIncorrectUser(true)

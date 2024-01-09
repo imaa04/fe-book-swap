@@ -24,8 +24,10 @@ export const postLogin = (loginBody) => {
 }
 
 export const postUser = (userBody) => {
+    console.log(userBody);
     return api.post('/users', userBody)
         .then((user) => {
+            console.log('success');
             return user.data
         })
 }
