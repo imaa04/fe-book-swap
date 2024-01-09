@@ -5,7 +5,6 @@ export const api = axios.create({
 })
 
 export const postLogin = (loginBody) => {
-    console.log(loginBody, 'this is loginBody');
     return api
         .post('/login', loginBody)
         .then((body) => {
@@ -16,7 +15,6 @@ export const postLogin = (loginBody) => {
 }
 
 export const postUser = (userBody) => {
-
     return api.post('/users', userBody)
         .then((user) => {
             return user.data
