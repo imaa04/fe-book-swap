@@ -3,6 +3,7 @@ const user = "Sarah Blue"
 import { useEffect, useState } from "react";
 import { getConversations } from "./api";
 import ConversationCard from "./ConversationCard";
+import { dateFormatter } from "./utils";
 
 export default ConversationList = ({navigation}) => {
 
@@ -17,18 +18,17 @@ export default ConversationList = ({navigation}) => {
 
   return (
     <View>
-      
           <FlatList
             data={conversations}
             renderItem={({ item }) => {
               return (
                 <View>
-                  <Text key={item.with} onPress={()=>{ 
+                  <Text onPress={()=>{ 
                     navigation.navigate("ConversationCard", {conversationWith: item.with});
                   }
 
                   }>{item.with}:</Text>
-                  <Text>Last message: {item.timestamp}</Text>
+                  <Text>Last message: {dateFormatter(item.timestamp)}</Text>
                 </View>
               );
             }}

@@ -1,46 +1,76 @@
-import { useEffect, useState, useRef } from "react";
-import { Text, View, FlatList, Pressable } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, View, FlatList, Pressable, TextInput, SafeAreaView, ScrollView, } from "react-native";
 import { getMessages } from "./api";
 import MessageInput from "./MessageInput";
 import * as React from "react";
+import { dateFormatter } from "./utils";
 
 export default ConversationCard = ({ route, navigation }) => {
   const user = "Sarah Blue";
-  const [webSocketReady, setWebSocketReady] = useState(false);
-
-  const [webSocket, setWebSocket] = useState(
-    new WebSocket(`ws://localhost:3000/${user}`)
-  );
-
-  useEffect(() => {
-    webSocket.onopen = (event) => {
-      console.log("connected to WSS");
-      setWebSocketReady(true);
-    };
-
-    webSocket.onclose = function (event) {
-      console.log("disconnected");
-      setWebSocketReady(false);
-      setTimeout(() => {
-        setWebSocket(new WebSocket("ws://localhost:3000"));
-      }, 1000);
-    };
-
-    webSocket.onerror = function (err) {
-      console.log("Socket encountered error: ", err.message, "Closing socket");
-      setWebSocketReady(false);
-      webSocket.close();
-    };
-
-    // request to api
-
-    return () => {
-      webSocket.close();
-    };
-  }, [webSocket]);
-
   const [messages, setMessages] = useState([]);
   const { conversationWith } = route.params;
+  const [newMessage, setNewMessage] = useState("");
+
+  const ws = new WebSocket("ws://localhost:3000/Sarah Blue");
+
+  ws.onopen = () => {
+    console.log("connection opened");
+ 
+  };
+
+  ws.onmessage = (e) => {
+   
+
+    const parsedMessage = JSON.parse(e.data);
+
+    console.log(parsedMessage.between)
+
+    if (parsedMessage.between.includes(conversationWith)){
+      setMessages((currMessages) => {
+        return [...currMessages, JSON.parse(e.data)];
+      })}
+
+  };
+
+ 
+
+
+
+  ws.onerror = (e) => {
+    // an error occurred
+    console.log(e.message);
+  };
+
+  ws.onclose = (e) => {
+    // connection closed
+    console.log(e.code, e.reason);
+  };
+
+
+
+  const onSendMessage = () => {
+    const formattedNewMessage = {
+      between: [user, conversationWith].sort(),
+      from: user,
+      body: newMessage,
+    };
+    ws.send(JSON.stringify(formattedNewMessage));
+
+    const messageToRender = {
+      ...formattedNewMessage,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((currMessages) => {
+      return [...currMessages, messageToRender];
+    });
+
+    setNewMessage("");
+  };
+
+  const onChangeText = (e) => {
+    setNewMessage(e);
+  };
 
   useEffect(() => {
     getMessages(user, conversationWith).then(({ data }) => {
@@ -48,34 +78,47 @@ export default ConversationCard = ({ route, navigation }) => {
     });
   }, []);
 
-  const testMessage = {
-    between: ["Sarah Blue", "David Black"],
-    from: "Sarah Blue",
-    body: "hardcoded message from front end",
-  };
-
   return (
     <View>
       <Text>this is the conversation card with {conversationWith} </Text>
-      <FlatList
+
+      <FlatList 
+      style={{ height: 500 }}
         data={messages}
         renderItem={({ item }) => {
+        
           return (
             <View>
               <Text>{item.from}</Text>
               <Text>{item.body}</Text>
-              <Text>{item.timestamp}</Text>
+              <Text>{dateFormatter(item.timestamp)}</Text>
             </View>
           );
         }}
-        keyExtractor={(message) => message._id}
       />
-      <MessageInput
-        setMessages={setMessages}
-        conversationWith={conversationWith}
+
+      {/* <FlatList
+            data={messages}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <Text>{item.from}</Text>
+                  <Text>{item.body}</Text>
+                  <Text>{item.timestamp}</Text>
+                </View>
+              );
+            }}
+            keyExtractor={(item) => item._id}
+          /> */}
+
+      <TextInput
+        onChangeText={onChangeText}
+        value={newMessage}
+        placeholder="Type a new message..."
+        keyboardType="text"
       />
-      <Pressable>
-        <Text>Send Test Message</Text>
+      <Pressable onPress={onSendMessage}>
+        <Text>Send message!</Text>
       </Pressable>
     </View>
   );
