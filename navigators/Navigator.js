@@ -11,8 +11,8 @@ const LoginStack = createNativeStackNavigator()
 export default function LoginNavigator (){
     return (
             <LoginStack.Navigator style={{ flex: 1, justifyContent: `center`}} 
-            initialRouteName="SignUpScreen"
-            screenOptions={{ headerTransparent: true }}>
+            initialRouteName="Login"
+            screenOptions={{ headerShown: false}}>
                 <LoginStack.Screen name='Login' component={LoginScreen} options={{title:"Login"}}/>
                 <LoginStack.Screen name='Signup' component={Signup} options={{title:"Signup"}}/>
               <LoginStack.Screen name='HomePage' component={HomePage} options={{ title: "HomePage" }} />

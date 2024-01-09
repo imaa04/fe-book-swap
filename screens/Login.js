@@ -8,11 +8,13 @@ import {
   Button,
   Link,
 } from "react-native";
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState,useEffect } from "react";
 import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
+import {TokenContext} from '../context/authTokenContext'
 import { useNavigation } from '@react-navigation/native'
 import { postLogin } from "../api";
+import useToken from "./UseToken";
 
 
 const LoginScreen = () => {
@@ -21,15 +23,25 @@ const LoginScreen = () => {
   const [buttonLock, setButtonLock] = useState('')
   const [input, setInput] = useState('')
   const [incorrectUser, setIncorrectUser] = useState(false)
-  const { token, setToken } = useContext(UserContext);
+  // const { setToken } = useContext(TokenContext);
   const [user, setUser] = useState({});
   const navigation = useNavigation()
+
+//   useEffect(()=>{
+// if(token){
+//   console.log(token,'in useEffect')
+// }
+
+//   },[token])
 
   const handleSubmit = (event) => {
     setUser(() => {
       const updatedUser = { username: username, password: password }
       postLogin(updatedUser).then((res) => {
         if (res) {
+          console.log(res,'res');
+          setToken(res)
+          console.log(token,'token in handle submit');
           navigation.navigate('HomePage')
         } else {
           setIncorrectUser(true)
