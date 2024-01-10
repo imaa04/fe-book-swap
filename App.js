@@ -1,24 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import LoginNavigator from "./navigators/Navigator";
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, } from 'react-native';
+import { NavigationContainer, TabActions, useRoute } from '@react-navigation/native';
+import LoginNavigator from './navigators/Navigator';
 import { NativeWindStyleSheet } from "nativewind";
 import { Button } from "react-native";
 // import SignupButton from './components/SignupButton';
+
 import { UserProvider } from "./context/userContext";
 import { TokenProvider,TokenContext } from "./context/authTokenContext";
 import HomePage from "./screens/HomePage";
 import { useEffect } from "react";
-
+import NavBar from './screens/NavBar';
 import {
   createNativeStackNavigator,
   StackNavigator,
 } from "@react-navigation/native-stack";
 import tailwind from "twrnc";
 import { useContext } from "react";
+
+
 // import Signup from "./screens/Signup";
+
 const Stack = createNativeStackNavigator();
+
 export default function App() {
+
 //  const token = useContext(TokenContext)
 //  useEffect(()=>{
 //   if(token){
@@ -26,6 +33,7 @@ export default function App() {
 //   }
   
 //     },[token])
+
   return (
     <TokenProvider>
     <UserProvider>
@@ -34,27 +42,12 @@ export default function App() {
       <StatusBar style="auto" />
     </View> */}
 
-      <NavigationContainer>
-      {/* {token ? (
-        <HomePage />
-      ) : (
-        <Stack.Navigator style={{ flex: 1, justifyContent: 'center' }}>
-          <Stack.Screen name="LoginNavigator" component={LoginNavigator} />
-        </Stack.Navigator>
-      )} */}
+      
+        <NavigationContainer >
+          <Stack.Navigator style={{ flex: 1, justifyContent: `center`, }} screenOptions={{ headerShown: false}}>
+            <Stack.Screen name='LoginNavigator' component={LoginNavigator} />
+            {/* <Stack.Screen name='NavBar' component={NavBar}/> */}
 
-        <Stack.Navigator
-          style={{ flex: 1, justifyContent: `center` }}
-          screenOptions={{ headerShown: false}}
-          >
-            <Stack.Screen
-              name="LoginNavigator"
-              component={LoginNavigator}
-            />
-          {/* <Stack.Screen
-            name="HomePage"
-            component={HomePage}
-          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

@@ -11,49 +11,55 @@ import {
 import React, { useContext, createContext, useState,useEffect } from "react";
 import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
+
 import {TokenContext} from '../context/authTokenContext'
 import { useNavigation } from '@react-navigation/native'
 import { postLogin } from "../api";
 import useToken from "./UseToken";
 import HomePage from "./HomePage";
+import NavBar from "./NavBar.js";
 
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [buttonLock, setButtonLock] = useState('')
-  const [input, setInput] = useState('')
-  const [incorrectUser, setIncorrectUser] = useState(false)
-  const { setToken } = useContext(TokenContext);
+
+
+  const [buttonLock, setButtonLock] = useState("");
+  const [input, setInput] = useState("");
+  const [incorrectUser, setIncorrectUser] = useState(false);
+  const { token, setToken } = useContext(UserContext);
   const [user, setUser] = useState({});
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+  const { userContext, setUserContext } = useContext(UserContext);
 
 
 
   const handleSubmit = (event) => {
     setUser(() => {
-      const updatedUser = { username: username, password: password }
-      postLogin(updatedUser).then((res) => {
-        if (res) {
-          setToken(res)
-          navigation.navigate('HomePage')
-        } else {
-          setIncorrectUser(true)
-          setTimeout(() => {
-            setIncorrectUser(false)
-          }, 7000);
-        }
-      }).catch((err) => {
-        setIncorrectUser(true)
-      })
-    })
+
+      const updatedUser = { username: username, password: password };
+      postLogin(updatedUser)
+        .then((res) => {
+          if (res) {
+            navigation.navigate("NavBar");
+            setUserContext(updatedUser);
+          } else {
+            setIncorrectUser(true);
+            setTimeout(() => {
+              setIncorrectUser(false);
+            }, 7000);
+          }
+        })
+        .catch((err) => {
+          setIncorrectUser(true);
+        });
+    });
+
     event.preventDefault();
-    setUsername('')
-    setPassword('')
-
-
-  }
-
+    setUsername("");
+    setPassword("");
+  };
 
   return (
     <View
@@ -79,13 +85,19 @@ const LoginScreen = () => {
             placeholder="Password"
             placeholderTextColor="#FFF"
           />
-          <Button title="Login" text="Login" variant="success" onPress={handleSubmit} disabled={false} />
-
-
+          <Button
+            title="Login"
+            text="Login"
+            variant="success"
+            onPress={handleSubmit}
+            disabled={false}
+          />
         </View>
         <View>
           {incorrectUser ? (
-            <Text style={{ color: 'red' }}>Your username or password is incorrect, Try again</Text>
+            <Text style={{ color: "red" }}>
+              Your username or password is incorrect, Try again
+            </Text>
           ) : (
             <Text>...</Text>
           )}
@@ -94,7 +106,10 @@ const LoginScreen = () => {
         <View style={tailwind`flex flex-row justify-between items-center my-8`}>
           <View style={tailwind`flex-row items-center`}>
             <Pressable>
-              <Text onPress={() => navigation.navigate('Signup')} style={tailwind`text-gray-50 font-bold`}>
+              <Text
+                onPress={() => navigation.navigate("Signup")}
+                style={tailwind`text-gray-50 font-bold`}
+              >
                 Don't have an account? Sign up
               </Text>
             </Pressable>
@@ -108,6 +123,7 @@ const LoginScreen = () => {
           </Pressable> */}
         </View>
       </View>
+      {/* <NavBar/> */}
     </View>
   );
 };
