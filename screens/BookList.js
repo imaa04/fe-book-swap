@@ -11,16 +11,19 @@ import {
 
 
 } from "react-native";
-import React, { useContext, createContext, useState, useEffect, TouchableOpacity } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
+import { TouchableOpacity } from "react-native";
 import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
 import { useNavigation } from '@react-navigation/native'
 import { getBooks } from "../api";
 import IndividualBook from "./IndividualBook";
 
-const BookList = ({ title, image, author }) => {
+
+const BookList = ({ title, image, author, genre, publishDate, condition, username, description }) => {
+    const navigation = useNavigation()
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('IndividualBook')}>
+        <TouchableOpacity onPress={() => navigation.navigate('IndividualBook',{ title : title, image : image, author: author, genre: genre, publishDate: publishDate, condition: condition , username: username, description: description})}>
         <View style={tailwind`flex-row pt-5 p-4 mb-1 bg-white rounded-lg shadow-md `}>
             <Image source={{ uri: image }} style={{ width: 100, height: 170 }} />
 
@@ -35,4 +38,4 @@ const BookList = ({ title, image, author }) => {
 
     )
 }
-export default BookList
+export default BookList;

@@ -28,12 +28,7 @@ const LoginScreen = () => {
   const [user, setUser] = useState({});
   const navigation = useNavigation()
 
-//   useEffect(()=>{
-// if(token){
-//   console.log(token,'in useEffect')
-// }
 
-//   },[token])
 
   const handleSubmit = (event) => {
     setUser(() => {
@@ -41,7 +36,6 @@ const LoginScreen = () => {
       postLogin(updatedUser).then((res) => {
         if (res) {
           setToken(res)
-          console.log('success');
           navigation.navigate('HomePage')
         } else {
           setIncorrectUser(true)
