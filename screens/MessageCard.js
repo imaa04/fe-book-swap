@@ -1,8 +1,16 @@
 import { getMessages } from "../api";
 import { dateFormatter } from "../utils";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { UserContext } from "../context/userContext";
-import { Text, View, FlatList, Pressable, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  Pressable,
+  TextInput,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import * as React from "react";
 import tailwind from "twrnc";
 
@@ -77,46 +85,47 @@ export default MessageCard = ({ route, navigation }) => {
   };
 
   return (
-    <View style={tailwind`flex gap-2`}>
-      <FlatList
-        style={{ height: 500 }}
-        data={messages}
-        renderItem={({ item }) => {
-          return (
-            <View style={tailwind`m-2`}>
-              <Text
-                style={
-                  item.from === conversationWith
-                    ? tailwind`text-right `
-                    : tailwind`text-left `
-                }
-              >
-                {item.from} | {dateFormatter(item.timestamp)}
-              </Text>
-              <Text
-                style={
-                  item.from === conversationWith
-                    ? tailwind`text-right `
-                    : tailwind`text-left `
-                }
-              >
-                {item.body}
-              </Text>
-            </View>
-          );
-        }}
-        keyExtractor={(item) => item._id}
-      />
+ 
+      <View style={tailwind`flex gap-2`}>
+        <FlatList
+          style={{ height: 500 }}
+          data={messages}
+          renderItem={({ item }) => {
+            return (
+              <View style={tailwind`m-2`}>
+                <Text
+                  style={
+                    item.from === conversationWith
+                      ? tailwind`text-right `
+                      : tailwind`text-left `
+                  }
+                >
+                  {item.from} | {dateFormatter(item.timestamp)}
+                </Text>
+                <Text
+                  style={
+                    item.from === conversationWith
+                      ? tailwind`text-right `
+                      : tailwind`text-left `
+                  }
+                >
+                  {item.body}
+                </Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item) => item._id}
+        />
 
-      <TextInput
-        onChangeText={onChangeText}
-        value={newMessage}
-        placeholder="Type a new message..."
-        keyboardType="text"
-      />
-      <Pressable disabled={messageValidator()} onPress={onSendMessage}>
-        <Text>Send message!</Text>
-      </Pressable>
-    </View>
+        <TextInput
+          onChangeText={onChangeText}
+          value={newMessage}
+          placeholder="Type a new message..."
+        />
+        <Pressable disabled={messageValidator()} onPress={onSendMessage}>
+          <Text>Send message!</Text>
+        </Pressable>
+      </View>
+  
   );
 };

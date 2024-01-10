@@ -38,7 +38,7 @@ const Messages = ({ route, navigation }) => {
             </View>
           );
         }}
-        keyExtractor={(message) => message._id}
+        keyExtractor={(item) => item.with}
       />
     </View>
   );
