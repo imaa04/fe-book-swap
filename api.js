@@ -34,3 +34,10 @@ export const getMessages = (user, conversationWith) => {
       return res;
     });
 };
+export const getUsers = (username) => {
+  return api
+    .get(`/users`, { params: { username} })
+    .then((res) => {
+      return res;
+    });
+};
