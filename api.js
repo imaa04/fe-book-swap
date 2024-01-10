@@ -8,12 +8,12 @@ export const getBooks = ()=>{
     return api
     .get('/books')
     .then(({data:{books}})=>{
+        console.log(books, 'this is books from api');
         return books
     })
 }
 
 export const postLogin = (loginBody) => {
-    console.log(loginBody, 'loginbody api');
     return api
         .post('/login', loginBody)
         .then((body) => {
@@ -24,7 +24,6 @@ export const postLogin = (loginBody) => {
 }
 
 export const postUser = (userBody) => {
-    console.log(userBody);
     return api.post('/users', userBody)
         .then((user) => {
             console.log('success');

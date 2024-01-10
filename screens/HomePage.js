@@ -23,11 +23,11 @@ useEffect(()=>{
 
     getBooks()
 
-    .then((books)=>{
+    .then((res)=>{
         
         // setBooks([books])
-        console.log(books);
-        setBooks(books)
+        console.log(res,'this success');
+         setBooks(res)
     
 
     })
