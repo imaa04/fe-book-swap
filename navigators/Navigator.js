@@ -1,16 +1,17 @@
-import React from "react";
-import {
-  createNativeStackNavigator,
-  StackNavigator,
-} from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
+
+import React from "react"
+import { createNativeStackNavigator, StackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from "../screens/Login";
 import Signup from "../screens/Signup";
 import HomePage from "../screens/HomePage";
 import NavBar from "../screens/NavBar";
 import MessageCard from "../screens/MessageCard";
+import IndividualBook from "../screens/IndividualBook";
+
 
 const LoginStack = createNativeStackNavigator();
+
 
 export default function LoginNavigator() {
   return (
@@ -34,6 +35,8 @@ export default function LoginNavigator() {
         component={NavBar}
         options={{ title: "NavBar", showlabel: false }}
       />
+      <LoginStack.Screen name='HomePage' component={HomePage} options={{ title: "Home" }} />
+      <LoginStack.Screen name='IndividualBook' component={IndividualBook} options={{ title: "Book" }} />
       <LoginStack.Screen
         name="MessageCard"
         component={MessageCard}
@@ -42,3 +45,4 @@ export default function LoginNavigator() {
     </LoginStack.Navigator>
   );
 }
+
