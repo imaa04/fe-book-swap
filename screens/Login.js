@@ -13,7 +13,6 @@ import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
 import { useNavigation } from '@react-navigation/native'
 import { postLogin } from "../api";
-import NavBar from "./NavBar.js";
 
 
 const LoginScreen = () => {
@@ -25,6 +24,7 @@ const LoginScreen = () => {
   const { token, setToken } = useContext(UserContext);
   const [user, setUser] = useState({});
   const navigation = useNavigation()
+  const { userContext, setUserContext } = useContext(UserContext);
 
   const handleSubmit = (event) => {
     setUser(() => {
@@ -32,6 +32,8 @@ const LoginScreen = () => {
       postLogin(updatedUser).then((res) => {
         if (res) {
           navigation.navigate('NavBar')
+          setUserContext(updatedUser);
+          console.log(userContext);
         } else {
           setIncorrectUser(true)
           setTimeout(() => {
@@ -103,7 +105,6 @@ const LoginScreen = () => {
           </Pressable> */}
         </View>
       </View>
-      {/* <NavBar/> */}
     </View>
   );
 };
