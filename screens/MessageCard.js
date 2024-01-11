@@ -20,7 +20,7 @@ export default MessageCard = ({ route, navigation }) => {
   const { conversationWith, title } = route.params;
   const [newMessage, setNewMessage] = useState("");
 
-console.log(messages)
+
 
 
   const ws = new WebSocket(
@@ -38,7 +38,7 @@ console.log(messages)
       setMessages((currMessages) => {
         return [...currMessages, JSON.parse(e.data)];
       });
-      setTrigger(messages)
+      //setTrigger(messages)
     }
   };
 

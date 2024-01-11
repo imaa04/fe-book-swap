@@ -22,13 +22,11 @@ const Messages = ({ route, navigation, testState }) => {
 
   useEffect(() => {
     getConversations(userContext.username).then(({ data }) => {
-      console.log(data.conversations);
       setConversations(data.conversations);
       setFocus(false)
     });
   }, []);
 
-  console.log(testState);
 
   return (
     <View>
