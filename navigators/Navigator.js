@@ -13,11 +13,11 @@ import IndividualBook from "../screens/IndividualBook";
 const LoginStack = createNativeStackNavigator();
 
 
-export default function LoginNavigator() {
+export default function Navigator() {
   return (
     <LoginStack.Navigator
       style={{ flex: 1, justifyContent: `center` }}
-      screenOptions={{ headerShown: true }}
+      screenOptions={{ headerShown: false }}
       initialRouteName="SignUpScreen"
     >
       <LoginStack.Screen

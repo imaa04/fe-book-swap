@@ -31,7 +31,7 @@ useEffect(()=>{
 }, [books])
     
     return (
-        <ScrollView style={tailwind`flex-1 w-full justify-left p-1 bg-gray-900 pt-2`}>
+        <ScrollView style={tailwind`flex-1 w-full p-1 bg-gray-900 pt-2`}>
             <SearchBarHomepage setSearchResults={setSearchResults} setSelectedGenres={setSelectedGenres} selectedGenres={selectedGenres}/>
             <View>
             {(() => {

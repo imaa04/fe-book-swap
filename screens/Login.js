@@ -38,33 +38,6 @@ const LoginScreen = () => {
 
   const handleSubmit = (event) => {
     setUser(() => {
-      const updatedUser = { username: username, password: password }
-      postLogin(updatedUser).then((res) => {
-        if (res) {
-          navigation.navigate('NavBar')
-          setUserContext(updatedUser);
-          console.log(userContext);
-        } else {
-          setIncorrectUser(true)
-          setTimeout(() => {
-            setIncorrectUser(false)
-          }, 7000);
-        }
-      }).catch((err) => {
-        setIncorrectUser(true)
-      })
-    })
-    event.preventDefault();
-    setUsername('')
-    setPassword('')
-
-  const navigation = useNavigation();
-  const { userContext, setUserContext } = useContext(UserContext);
-
-
-
-  const handleSubmit = (event) => {
-    setUser(() => {
 
 
       const updatedUser = { username: username, password: password };
@@ -155,5 +128,5 @@ const LoginScreen = () => {
     </View>
   );
 };
-}
+
 export default LoginScreen;
