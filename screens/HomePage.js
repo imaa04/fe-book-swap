@@ -20,6 +20,7 @@ import SearchBarHomepage from "./SearchBarHomepage";
 const HomePage = () => {
 const [books,setBooks]=useState([])
 const [searchResults, setSearchResults] = useState([])
+    const [selectedGenres, setSelectedGenres] = useState(null)
 useEffect(()=>{
 
     getBooks()
@@ -31,13 +32,15 @@ useEffect(()=>{
     
     return (
         <ScrollView style={tailwind`flex-1 w-full justify-left p-1 bg-gray-900 pt-2`}>
-            <SearchBarHomepage setSearchResults={setSearchResults}/>
+            <SearchBarHomepage setSearchResults={setSearchResults} setSelectedGenres={setSelectedGenres} selectedGenres={selectedGenres}/>
             <View>
             {(() => {
                 if(searchResults.length > 0) {
-                    return (
-                        <BookList key={searchResults[0]._id} title={searchResults[0].title} image={searchResults[0].book_img} author={searchResults[0].author} genre={searchResults[0].genre} publishDate={searchResults[0].published_date} condition={searchResults[0].condition} username={searchResults[0].username} description={searchResults[0].description} />
-                    )
+                    return searchResults.map((result) => {
+                            return <BookList key={result._id} title={result.title} image={result.book_img} author={result.author} genre={result.genre} publishDate={result.published_date} condition={result.condition} username={result.username} description={result.description} />
+                        })
+                        
+                    
                     
                 }
                 else if (books) {

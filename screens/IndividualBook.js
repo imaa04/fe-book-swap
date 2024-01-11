@@ -8,7 +8,8 @@ import {
     Button,
     Link,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 
 } from "react-native";
 import React, { useContext, createContext, useState, useEffect } from "react";
@@ -29,7 +30,8 @@ const IndividualBook = () => {
     const infoUsername = params?.username
     const infoDescription = params?.description
     return (
-        <View style={tailwind`flex-1 w-full justify-left p-1 bg-gray-900 pt-6 pl-4 pr-4`}>
+
+        <ScrollView style={tailwind`flex-1 w-full justify-left p-1 bg-gray-900 pt-6 pl-4 pr-4`}>
             <View style={tailwind`flex-row pt-5 p-4 mb-1 bg-white rounded-lg shadow-md `}>
                 <Image source={{ uri: infoImage }} style={{ width: 100, height: 170 }} />
 
@@ -38,7 +40,6 @@ const IndividualBook = () => {
                     <Text style={tailwind`text-sm font-bold`}>{infoAuthor}</Text>
                     <Text style={tailwind`text-sm`}>Genre: {infoGenre}</Text>
                     <Text style={tailwind`text-sm`}>Publish Date: {infoPublishDate}</Text>
-                    <Text style={tailwind`text-sm`}>{infoDescription}</Text>
                     <Text style={tailwind`text-sm`}>Condition: {infoCondition}</Text>
                 </View>
 
@@ -49,7 +50,7 @@ const IndividualBook = () => {
             <View style={tailwind`flex pt-5 p-4 mb-1 bg-white rounded-lg shadow-md justify-center items-center`}>
                 <Button title="Message poster" text="Click to burrow" />
         </View>
-        </View>
+        </ScrollView>
 
     )
 }
