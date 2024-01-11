@@ -17,7 +17,7 @@ export default function LoginNavigator() {
   return (
     <LoginStack.Navigator
       style={{ flex: 1, justifyContent: `center` }}
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: true }}
       initialRouteName="SignUpScreen"
     >
       <LoginStack.Screen
@@ -35,8 +35,8 @@ export default function LoginNavigator() {
         component={NavBar}
         options={{ title: "NavBar", showlabel: false }}
       />
-      <LoginStack.Screen name='HomePage' component={HomePage} options={{ title: "Home" }} />
-      <LoginStack.Screen name='IndividualBook' component={IndividualBook} options={{ title: "Book" }} />
+          <LoginStack.Screen name='HomePage' component={HomePage} options={{ title: "", showlabel: false }} />
+      <LoginStack.Screen name='IndividualBook' component={IndividualBook} options={{ title: "" }} />
       <LoginStack.Screen
         name="MessageCard"
         component={MessageCard}
