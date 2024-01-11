@@ -20,13 +20,13 @@ import ListBook from "./ListBook";
 import Messages from "./Messages";
 import Profile from "./Profile";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import IndividualBook from "./IndividualBook";
 
 const Tab = createBottomTabNavigator();
 
 const NavBar = () => {
   return (
     <Tab.Navigator
-      // screenOptions={{ headerShown: false }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -46,12 +46,13 @@ const NavBar = () => {
         },
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",
+        headerShown:false
       })}
     >
       <Tab.Screen
         name="HomePage"
         component={HomePage}
-        options={{ showlabel: false }}
+        options={{ showlabel: false, headerShown: false}}
       />
       <Tab.Screen
         name="ListBook"

@@ -20,7 +20,7 @@ export default function LoginNavigator() {
   return (
     <LoginStack.Navigator
       style={{ flex: 1, justifyContent: `center` }}
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: true }}
       initialRouteName="SignUpScreen"
     >
       <LoginStack.Screen
@@ -38,10 +38,11 @@ export default function LoginNavigator() {
         component={NavBar}
         options={{ title: "NavBar", showlabel: false }}
       />
+
       <LoginStack.Screen
         name="HomePage"
         component={HomePage}
-        options={{ title: "Home" }}
+        options={{ title: "Home", showlabel: false }}
       />
       <LoginStack.Screen name="Messages">
         {(props) => (
@@ -58,6 +59,7 @@ export default function LoginNavigator() {
         component={IndividualBook}
         options={{ title: "Book", headerShown: true }}
       />
+
       <LoginStack.Screen
         name="MessageCard"
         component={MessageCard}
