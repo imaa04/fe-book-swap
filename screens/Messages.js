@@ -29,14 +29,16 @@ const Messages = ({ route, navigation, testState }) => {
 
 
   return (
-    <View>
-      <Text>Your Messages</Text>
+    <View style={tailwind`mx-auto flex-1 w-full  bg-gray-900 pt-20 justify-center items-center`}>
+      <Text style={tailwind `text-white `}>Your Messages</Text>
       <FlatList
+        
         data={conversations}
         renderItem={({ item }) => {
           return (
-            <View>
+            <View style={tailwind `m-2 bg-gray-700 rounded-lg p-3 opacity-80 px-4 text-right text-white self-start w-103`}>
               <Text
+              style={tailwind`text-blue-300`}
                 onPress={() => {
                   navigation.navigate("MessageCard", {
                     conversationWith: item.with
@@ -46,7 +48,7 @@ const Messages = ({ route, navigation, testState }) => {
               >
                 {item.with}:
               </Text>
-              <Text>Last message: {dateFormatter(item.timestamp)}</Text>
+              <Text style={tailwind`text-white`}>Last message: {dateFormatter(item.timestamp)}</Text>
             </View>
           );
         }}

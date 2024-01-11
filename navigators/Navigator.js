@@ -59,7 +59,7 @@ export default function Navigator() {
       <LoginStack.Screen
         name="IndividualBook"
         component={IndividualBook}
-        options={{ title: "Book", headerShown: true }}
+        options={{ title: "", headerShown: true }}
       />
 
       <LoginStack.Screen

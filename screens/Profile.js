@@ -32,11 +32,12 @@ useEffect(()=>{
 },[])
 
     return (
-        <View>
-      <UserBio userDetails={userDetails}/>
+        <View style={tailwind`mx-auto flex-1 w-full  bg-gray-900 pt-20 justify-center items-center`}>
+            <Text style={tailwind`text-white text-lg font-bold`}>{userToDisplay}</Text>
+            <UserBio userDetails={userDetails}/>
       <UserListings/>
-        <Pressable>
-              <Text onPress={() => navigation.navigate('Login')} style={tailwind` font-bold`}>
+            <Pressable>
+              <Text onPress={() => navigation.navigate('Login')} style={tailwind`text-white font-bold`}>
                 Sign Out
               </Text>
             </Pressable>
