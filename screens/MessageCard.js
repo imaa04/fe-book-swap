@@ -16,9 +16,12 @@ import tailwind from "twrnc";
 
 export default MessageCard = ({ route, navigation }) => {
   const { userContext } = useContext(UserContext);
-  const [messages, setMessages] = useState([]);
-  const { conversationWith } = route.params;
+   const [messages, setMessages] = useState([]);
+  const { conversationWith, title } = route.params;
   const [newMessage, setNewMessage] = useState("");
+
+console.log(messages)
+
 
   const ws = new WebSocket(
     `wss://cluster-books-wss.onrender.com/${userContext.username}`
@@ -35,6 +38,7 @@ export default MessageCard = ({ route, navigation }) => {
       setMessages((currMessages) => {
         return [...currMessages, JSON.parse(e.data)];
       });
+      setTrigger(messages)
     }
   };
 
@@ -72,6 +76,10 @@ export default MessageCard = ({ route, navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({ title: conversationWith });
+
+if(title){
+  setNewMessage(`Hello, is your copy of ${title} available to borrow?`)
+}
 
     getMessages(userContext.username, conversationWith).then(({ data }) => {
       setMessages(data.messages);

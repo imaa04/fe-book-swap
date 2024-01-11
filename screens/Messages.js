@@ -6,16 +6,29 @@ import { UserContext } from "../context/userContext";
 
 import { getConversations } from "../api";
 import { dateFormatter } from "../utils";
+import { useFocusEffect } from "@react-navigation/native";
 
-const Messages = ({ route, navigation }) => {
+const Messages = ({ route, navigation, testState }) => {
   const [conversations, setConversations] = useState([]);
+  const [focus, setFocus] = useState(false);
   const { userContext } = useContext(UserContext);
+
+
+
+  // useFocusEffect(() => {
+  //   console.log("focus")
+  //   setFocus(true);
+  // },[focus]);
 
   useEffect(() => {
     getConversations(userContext.username).then(({ data }) => {
+      console.log(data.conversations);
       setConversations(data.conversations);
+      setFocus(false)
     });
   }, []);
+
+  console.log(testState);
 
   return (
     <View>
@@ -28,7 +41,8 @@ const Messages = ({ route, navigation }) => {
               <Text
                 onPress={() => {
                   navigation.navigate("MessageCard", {
-                    conversationWith: item.with,
+                    conversationWith: item.with
+                    
                   });
                 }}
               >

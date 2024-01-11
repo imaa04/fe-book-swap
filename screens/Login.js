@@ -8,16 +8,23 @@ import {
   Button,
   Link,
 } from "react-native";
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState,useEffect } from "react";
 import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
-import { useNavigation } from "@react-navigation/native";
+
+import {TokenContext} from '../context/authTokenContext'
+import { useNavigation } from '@react-navigation/native'
 import { postLogin } from "../api";
+import useToken from "./UseToken";
+import HomePage from "./HomePage";
 import NavBar from "./NavBar.js";
+
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+
   const [buttonLock, setButtonLock] = useState("");
   const [input, setInput] = useState("");
   const [incorrectUser, setIncorrectUser] = useState(false);
@@ -26,8 +33,11 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const { userContext, setUserContext } = useContext(UserContext);
 
+
+
   const handleSubmit = (event) => {
     setUser(() => {
+
       const updatedUser = { username: username, password: password };
       postLogin(updatedUser)
         .then((res) => {
@@ -45,6 +55,7 @@ const LoginScreen = () => {
           setIncorrectUser(true);
         });
     });
+
     event.preventDefault();
     setUsername("");
     setPassword("");

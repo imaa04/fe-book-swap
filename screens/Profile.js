@@ -12,7 +12,7 @@ import React, { useContext, createContext, useState, useEffect } from "react";
 import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
 import { useNavigation } from '@react-navigation/native'
-import { getUsers } from "../api";
+import { getBooks, getUsers } from "../api";
 import UserBio from "./UserBio";
 import UserListings from "./UserListings";
 
@@ -26,7 +26,9 @@ useEffect(()=>{
     getUsers(userToDisplay).then((res)=>{
         setUserDetails(res.data.users[0])
     })
-
+    getBooks(userToDisplay).then((res)=>{
+        console.log(res.data)
+    })
 },[])
 
     return (
