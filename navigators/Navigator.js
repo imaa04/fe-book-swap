@@ -14,13 +14,15 @@ import Messages from "../screens/Messages";
 
 const LoginStack = createNativeStackNavigator();
 
-export default function LoginNavigator() {
-  const [trigger, setTrigger] = useState("banana");
+
+export default function Navigator() {
+  //const [trigger, setTrigger] = useState("banana");
+
 
   return (
     <LoginStack.Navigator
       style={{ flex: 1, justifyContent: `center` }}
-      screenOptions={{ headerShown: true }}
+      screenOptions={{ headerShown: false }}
       initialRouteName="SignUpScreen"
     >
       <LoginStack.Screen

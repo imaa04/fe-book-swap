@@ -36,7 +36,7 @@ useEffect(()=>{
       <UserBio userDetails={userDetails}/>
       <UserListings/>
         <Pressable>
-              <Text onPress={() => navigation.navigate('Login')} style={tailwind`text-black-50 font-bold`}>
+              <Text onPress={() => navigation.navigate('Login')} style={tailwind` font-bold`}>
                 Sign Out
               </Text>
             </Pressable>

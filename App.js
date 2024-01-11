@@ -2,7 +2,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, } from 'react-native';
 import { NavigationContainer, TabActions, useRoute } from '@react-navigation/native';
-import LoginNavigator from './navigators/Navigator';
+import Navigator from './navigators/Navigator';
 import { NativeWindStyleSheet } from "nativewind";
 import { Button } from "react-native";
 // import SignupButton from './components/SignupButton';
@@ -46,7 +46,7 @@ export default function App() {
       
         <NavigationContainer >
           <Stack.Navigator style={{ flex: 1, justifyContent: `center`, }} screenOptions={{ headerShown: false}}>
-            <Stack.Screen name='LoginNavigator' component={LoginNavigator} />
+            <Stack.Screen name='Navigator' component={Navigator} />
             {/* <Stack.Screen name='NavBar' component={NavBar}/> */}
 
         </Stack.Navigator>
