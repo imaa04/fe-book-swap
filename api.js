@@ -21,3 +21,11 @@ export const postUser = (userBody) => {
         })
 }
 
+export const postBook = (newBook)=>{
+    return api.post('/books', newBook)
+    .then(({data:{book}})=>{
+        console.log(book,'book in the api');
+        return book
+    })
+}
+
