@@ -21,6 +21,16 @@ export const getBookBySearch = (bookName) => {
         
 }
 
+
+export const postBook = (newBook)=>{
+    return api.post('/books', newBook)
+    .then(({data:{book}})=>{
+        console.log(book,'book in the api');
+        return book
+    })
+}
+
+
 export const getGenres = () => {
     return api
         .get('/genres')
@@ -74,3 +84,4 @@ export const getMessages = (user, conversationWith) => {
             return res;
         });
 };
+

@@ -15,9 +15,11 @@ import { UserContext } from "../context/userContext";
 import {TokenContext} from '../context/authTokenContext'
 import { useNavigation } from '@react-navigation/native'
 import { postLogin } from "../api";
+
 import useToken from "./UseToken";
 import HomePage from "./HomePage";
 import NavBar from "./NavBar.js";
+
 
 
 const LoginScreen = () => {
@@ -30,6 +32,32 @@ const LoginScreen = () => {
   const [incorrectUser, setIncorrectUser] = useState(false);
   const { token, setToken } = useContext(UserContext);
   const [user, setUser] = useState({});
+
+  const navigation = useNavigation()
+  const { userContext, setUserContext } = useContext(UserContext);
+
+  const handleSubmit = (event) => {
+    setUser(() => {
+      const updatedUser = { username: username, password: password }
+      postLogin(updatedUser).then((res) => {
+        if (res) {
+          navigation.navigate('NavBar')
+          setUserContext(updatedUser);
+          console.log(userContext);
+        } else {
+          setIncorrectUser(true)
+          setTimeout(() => {
+            setIncorrectUser(false)
+          }, 7000);
+        }
+      }).catch((err) => {
+        setIncorrectUser(true)
+      })
+    })
+    event.preventDefault();
+    setUsername('')
+    setPassword('')
+
   const navigation = useNavigation();
   const { userContext, setUserContext } = useContext(UserContext);
 
@@ -37,6 +65,7 @@ const LoginScreen = () => {
 
   const handleSubmit = (event) => {
     setUser(() => {
+
 
       const updatedUser = { username: username, password: password };
       postLogin(updatedUser)
@@ -123,7 +152,6 @@ const LoginScreen = () => {
           </Pressable> */}
         </View>
       </View>
-      {/* <NavBar/> */}
     </View>
   );
 };
