@@ -8,6 +8,7 @@ import {
     Button,
     Link,
     ScrollView,
+    KeyboardAvoidingView,
 } from "react-native";
 import React, { useContext, createContext, useState,useEffect } from "react";
 import tailwind from "twrnc";
@@ -31,9 +32,14 @@ useEffect(()=>{
 }, [books])
     
     return (
-        <ScrollView style={tailwind`flex-1 w-full p-1 bg-gray-900 pt-2`}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -50}
+            style={tailwind`mx-auto flex-1 w-full items-center justify-center bg-gray-900`}
+        >
+            <Text style={tailwind`text-4xl font-bold mb-6 text-gray-50 pt-20`}>Cluster Books 📖</Text>
+        <ScrollView style={tailwind`flex-1 w-full p-1 bg-gray-900 pt-5`}>
             <SearchBarHomepage setSearchResults={setSearchResults} setSelectedGenres={setSelectedGenres} selectedGenres={selectedGenres}/>
-            <View>
+                <View style={tailwind`flex-1 w-full p-1 bg-gray-900 pt-2 px-4`}>
             {(() => {
                 if(searchResults.length > 0) {
                     return searchResults.map((result) => {
@@ -56,6 +62,7 @@ useEffect(()=>{
         
         </View>
         </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 

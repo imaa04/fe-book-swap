@@ -4,12 +4,13 @@ export const api = axios.create({
     baseURL: "https://cluster-books-api.onrender.com/api",
 });
 
-export const getBooks = () => {
+export const getBooks = (username)=>{
     return api
-        .get('/books')
-        .then((body) => {
-            return body.data.books
-        })
+    .get('/books', {params: {username}})
+    .then((body)=>{
+        return body.data.books
+    })
+
 }
 
 export const getBookBySearch = (bookName) => {
@@ -84,4 +85,14 @@ export const getMessages = (user, conversationWith) => {
             return res;
         });
 };
+
+export const getUsers = (username) => {
+  return api
+    .get(`/users`, { params: { username} })
+    .then((res) => {
+      return res;
+    });
+};
+
+
 

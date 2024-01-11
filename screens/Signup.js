@@ -15,7 +15,7 @@ import Locations from "../data/locations";
 import { useNavigation } from '@react-navigation/native'
 import RNPickerSelect from "react-native-picker-select";
 import { postUser } from "../api";
-
+import { TouchableOpacity } from "react-native";
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +23,7 @@ const Signup = () => {
   const [incorrectUser, setIncorrectUser] = useState(false)
   const [location, setLocation] = useState("");
   const [submitAlert, setSubmitAlert] = useState('')
+  const [isSecureEntry, setIsSecureEntry] = useState(true)
   const navigation = useNavigation()
 
  
@@ -60,8 +61,9 @@ const Signup = () => {
 
   return (
     <View
-      style={tailwind`flex-1 w-full items-center justify-center bg-gray-950`}
+      style={tailwind`flex-1 w-full items-center justify-center bg-gray-900`}
     >
+      
       <View style={tailwind`px-4 w-full max-w-sm`}>
         <Text style={tailwind`text-2xl font-bold mb-6 text-gray-50`}>
           Signup
@@ -104,6 +106,15 @@ const Signup = () => {
           color="white"
           placeholder="Password"
           placeholderTextColor="#FFF"
+          secureTextEntry={isSecureEntry}
+          icon={
+            <TouchableOpacity
+              onPress={() => {
+                setIsSecureEntry((prev) => !prev);
+              }}>
+              <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+            </TouchableOpacity>
+          }
         />
         <View>
           {incorrectUser ? (

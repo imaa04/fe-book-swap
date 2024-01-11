@@ -11,7 +11,7 @@ import {
 import React, { useContext, createContext, useState,useEffect } from "react";
 import tailwind from "twrnc";
 import { UserContext } from "../context/userContext";
-
+import { TouchableOpacity } from "react-native";
 import {TokenContext} from '../context/authTokenContext'
 import { useNavigation } from '@react-navigation/native'
 import { postLogin } from "../api";
@@ -32,7 +32,7 @@ const LoginScreen = () => {
   const [incorrectUser, setIncorrectUser] = useState(false);
   const { token, setToken } = useContext(UserContext);
   const [user, setUser] = useState({});
-
+  const [isSecureEntry, setIsSecureEntry] = useState(true)
   const navigation = useNavigation()
   const { userContext, setUserContext } = useContext(UserContext);
 
@@ -65,9 +65,11 @@ const LoginScreen = () => {
 
   return (
     <View
-      style={tailwind`flex-1 w-full items-center justify-center bg-gray-950`}
+      style={tailwind`flex-1 w-full items-center justify-center bg-gray-900`}
     >
+      <Text style={tailwind`text-4xl font-bold mb-6 text-gray-50`}>Cluster Books 📖</Text>
       <View style={tailwind`px-4 w-full max-w-sm`}>
+        
         <Text style={tailwind`text-2xl font-bold mb-6 text-gray-50`}>
           Login
         </Text>
@@ -86,6 +88,15 @@ const LoginScreen = () => {
             color="white"
             placeholder="Password"
             placeholderTextColor="#FFF"
+            secureTextEntry={isSecureEntry}
+            icon={
+              <TouchableOpacity
+                onPress={() => {
+                  setIsSecureEntry((prev) => !prev);
+                }}>
+                <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+              </TouchableOpacity>
+            }
           />
           <Button
             title="Login"

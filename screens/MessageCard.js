@@ -17,8 +17,11 @@ import tailwind from "twrnc";
 export default MessageCard = ({ route, navigation }) => {
   const { userContext } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
-  const { conversationWith } = route.params;
+  const { conversationWith, title } = route.params;
   const [newMessage, setNewMessage] = useState("");
+
+
+
 
   const ws = new WebSocket(
     `wss://cluster-books-wss.onrender.com/${userContext.username}`
@@ -35,6 +38,7 @@ export default MessageCard = ({ route, navigation }) => {
       setMessages((currMessages) => {
         return [...currMessages, JSON.parse(e.data)];
       });
+      //setTrigger(messages)
     }
   };
 
@@ -73,6 +77,10 @@ export default MessageCard = ({ route, navigation }) => {
   useEffect(() => {
     navigation.setOptions({ title: conversationWith });
 
+    if (title) {
+      setNewMessage(`Hello, is your copy of ${title} available to borrow?`)
+    }
+
     getMessages(userContext.username, conversationWith).then(({ data }) => {
       setMessages(data.messages);
     });
@@ -85,19 +93,25 @@ export default MessageCard = ({ route, navigation }) => {
   };
 
   return (
- 
-      <View style={tailwind`flex gap-2`}>
+
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -50}
+      style={tailwind`mx-auto flex-1 w-full items-center justify-center bg-gray-900`}
+    >
+      <View style={tailwind`flex-1 top-10 flex-col gap-4 items-center justify-center `}>
+
         <FlatList
           style={{ height: 500 }}
           data={messages}
           renderItem={({ item }) => {
             return (
-              <View style={tailwind`m-2`}>
+              <View style={item.from === conversationWith ? tailwind`m-2 bg-gray-700 rounded-lg p-3 opacity-80 px-4 text-right text-white self-start` : tailwind`m-2 bg-gray-700 rounded-lg p-3 opacity-80 px-4 text-left text-white self-end`}>
                 <Text
                   style={
+
                     item.from === conversationWith
-                      ? tailwind`text-right `
-                      : tailwind`text-left `
+                      ? tailwind`text-right self-start text-blue-300`
+                      : tailwind`text-left self-end text-blue-300`
                   }
                 >
                   {item.from} | {dateFormatter(item.timestamp)}
@@ -105,8 +119,8 @@ export default MessageCard = ({ route, navigation }) => {
                 <Text
                   style={
                     item.from === conversationWith
-                      ? tailwind`text-right `
-                      : tailwind`text-left `
+                      ? tailwind`text-right text-white self-start`
+                      : tailwind`text-left text-white self-end `
                   }
                 >
                   {item.body}
@@ -118,14 +132,18 @@ export default MessageCard = ({ route, navigation }) => {
         />
 
         <TextInput
+
           onChangeText={onChangeText}
           value={newMessage}
           placeholder="Type a new message..."
+          color='white'
+          placeholderTextColor="#FFF"
         />
         <Pressable disabled={messageValidator()} onPress={onSendMessage}>
-          <Text>Send message!</Text>
+          <Text style={tailwind`text-blue-300 font-bold pb-30`}>Send message!</Text>
         </Pressable>
       </View>
-  
+    </KeyboardAvoidingView>
+
   );
 };

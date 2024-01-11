@@ -19,7 +19,7 @@ import { UserContext } from "../context/userContext";
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { getBooks } from "../api";
 
-const IndividualBook = () => {
+const IndividualBook = ({navigation}) => {
     const { params } = useRoute()
     const infoReceived = params?.title
     const infoImage = params?.image
@@ -48,7 +48,12 @@ const IndividualBook = () => {
                 <Text style={tailwind`text-sm`}>This book was posted by: {infoUsername}</Text>
             </View>
             <View style={tailwind`flex pt-5 p-4 mb-1 bg-white rounded-lg shadow-md justify-center items-center`}>
-                <Button title="Message poster" text="Click to burrow" />
+                <Button title="Message poster" text="Click to borrow" 
+                onPress={() => {
+                  navigation.navigate("MessageCard", {
+                    conversationWith: infoUsername,
+                    title: infoReceived
+                  })}}/>
         </View>
         </ScrollView>
 

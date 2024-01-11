@@ -135,7 +135,7 @@ const ListBook = () => {
   return (
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -50}
-      style={tailwind`mx-auto flex-1 w-full items-center justify-center bg-gray-950`}
+      style={tailwind`mx-auto flex-1 w-full items-center justify-center bg-gray-900`}
       >
       <StatusBar barStyle="light-content" />
       <View

@@ -10,7 +10,7 @@ import { Button } from "react-native";
 import { UserProvider } from "./context/userContext";
 import { TokenProvider,TokenContext } from "./context/authTokenContext";
 import HomePage from "./screens/HomePage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NavBar from './screens/NavBar';
 import {
   createNativeStackNavigator,
@@ -25,6 +25,7 @@ import { useContext } from "react";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
 
 //  const token = useContext(TokenContext)
 //  useEffect(()=>{
