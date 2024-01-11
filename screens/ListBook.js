@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -11,6 +11,8 @@ import {
   FlatList,
   Image,
   Dimensions,
+  KeyboardAvoidingView, 
+  StatusBar,
 } from "react-native";
 import React, { useContext, createContext, useState, useEffect } from "react";
 import tailwind from "twrnc";
@@ -131,14 +133,16 @@ const ListBook = () => {
   const relativeFormWidth = width * 0.25
 
   return (
-    <View
-      style={tailwind`container mx-auto flex-1 w-full items-center justify-center bg-gray-950`}
-    >
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -50}
+      style={tailwind`mx-auto flex-1 w-full items-center justify-center bg-gray-950`}
+      >
+      <StatusBar barStyle="light-content" />
       <View
         style={tailwind`flex-1 top-10 flex-col gap-4 items-center justify-center `}
       >
         <TextInput
-          style={tailwind`border-2 border-white bg-zinc-500 rounded-lg w-${relativeWidth}`}
+          style={tailwind`border-2 top-8 border-white bg-zinc-500 rounded-lg w-${relativeWidth}`}
           value={searchTerm}
           onChangeText={setSearchTerm}
           color="white"
@@ -146,18 +150,18 @@ const ListBook = () => {
           placeholderTextColor="#FFF"
         />
         <Pressable>
-          <Text onPress={handleSearch} style={tailwind`text-gray-50 font-bold`}>
+          <Text onPress={handleSearch} style={tailwind`text-gray-50 top-6 font-bold`}>
             Search
           </Text>
         </Pressable>
 
         <FlatList
-          style={tailwind`flex-1 pt-1 pb-30`}
+          style={tailwind`flex-1 pt-1 pb-30 top-4`}
           horizontal={true}
           data={books}
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => (
-            <View style={tailwind`flex-initial items-align`}>
+            <View style={tailwind`flex-initial`}>
               <Pressable
                 onPress={() => {
                   handleBookSelection(item);
@@ -254,7 +258,7 @@ const ListBook = () => {
             placeholder="condition"
             placeholderTextColor="#FFF"
           />
-          <Text style={tailwind`text-1xl top-5 font-bold mb-6 text-gray-50`}>
+          <Text style={tailwind`top-5 font-bold mb-6 text-gray-50`}>
             Borrow Length:
           </Text>
           <TextInput
@@ -303,7 +307,7 @@ const ListBook = () => {
           )}
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
